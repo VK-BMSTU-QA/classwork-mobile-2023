@@ -25,8 +25,3 @@ class SearchPagePageMWLocators(BasePageMWLocators):
 class TitlePagePageMWLocators(BasePageMWLocators):
     STAR_BUTTON = (By.ID, 'ca-watch')
 
-
-class TitleListPagePageMWLocators(BasePageMWLocators):
-    MARKED_TITLE = (By.XPATH, "//a[contains(@class,'icon-wikimedia-unStar-progressive')]")
-    TITLE_NAME = "//h3[text()='{}']"
-    ELEMENT = "//span[text()='{}']"

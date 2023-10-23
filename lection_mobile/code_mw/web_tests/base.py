@@ -5,7 +5,6 @@ from ui.pages.base_page import BasePage
 from ui.pages.login_page import LoginPage
 from ui.pages.main_page import MainPage
 from ui.pages.search_page import SearchPage
-from ui.pages.title_list_page import TitleListPage
 from ui.pages.title_page import TitlePage
 
 
@@ -22,6 +21,5 @@ class BaseCase:
         self.main_page: MainPage = request.getfixturevalue('main_page')
         self.search_page: SearchPage = request.getfixturevalue('search_page')
         self.title_page: TitlePage = request.getfixturevalue('title_page')
-        self.title_list_page: TitleListPage = request.getfixturevalue('title_list_page')
 
         self.logger.debug('Initial setup done!')

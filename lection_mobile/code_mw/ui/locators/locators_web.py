@@ -21,7 +21,3 @@ class SearchPageLocators(BasePageLocators):
 
 class TitlePageLocators(BasePageLocators):
     pass
-
-
-class TitleListPageLocators(BasePageLocators):
-    pass

@@ -3,7 +3,7 @@ import os
 import allure
 import pytest
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 from ui import pages
 from ui.capability import capability_select
@@ -43,12 +43,6 @@ def title_page(driver, config):
     return page(driver=driver, config=config)
 
 
-@pytest.fixture
-def title_list_page(driver, config):
-    page = get_page(config['device_os'], 'TitleListPage')
-    return page(driver=driver, config=config)
-
-
 def get_page(device, page_class):
     if device == 'mw':
         page_class += "MW"
@@ -59,15 +53,15 @@ def get_page(device, page_class):
 
 
 def get_driver(browser_name, device_os):
-    manager = ChromeDriverManager(version='111.0.5563.64')
+    service = Service()
     if device_os == 'web':
         if browser_name == 'chrome':
-            browser = webdriver.Chrome(executable_path=manager.install(),
+            browser = webdriver.Chrome(service=service,
                                        options=capability_select(device_os))
         else:
             raise UnsupportedBrowserType(f' Unsupported browser {browser_name}')
     elif device_os == 'mw':
-        browser = webdriver.Chrome(executable_path=manager.install(),
+        browser = webdriver.Chrome(service=service,
                                    options=capability_select(device_os))
     else:
         raise UnsupportedBrowserType(f' Unsupported device_os type {device_os}')

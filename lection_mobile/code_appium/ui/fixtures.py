@@ -4,7 +4,7 @@ import allure
 import pytest
 from appium import webdriver
 from selenium import webdriver as wd
-from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 from ui import pages
 from ui.capability import capability_select
@@ -63,18 +63,18 @@ def get_page(device, page_class):
 
 def get_driver(browser_name, device_os, appium_url):
     if device_os in ['web', 'mw']:
-        manager = ChromeDriverManager(version='111.0.5563.64')
+        service = Service()
         if browser_name == 'chrome':
-            browser = wd.Chrome(executable_path=manager.install(),
+            browser = wd.Chrome(service=service,
                                 options=capability_select(device_os))
         elif device_os == 'mw':
-            browser = wd.Chrome(executable_path=manager.install(),
+            browser = wd.Chrome(service=service,
                                 options=capability_select(device_os))
         else:
             raise UnsupportedBrowserType(f' Unsupported browser {browser_name}')
     elif device_os == 'android':
         desired_caps = capability_select(device_os)
-        driver = webdriver.Remote(appium_url, desired_capabilities=desired_caps)
+        driver = webdriver.Remote(appium_url, options=desired_caps)
         return driver
     else:
         raise UnsupportedBrowserType(f' Unsupported device_os type {device_os}')

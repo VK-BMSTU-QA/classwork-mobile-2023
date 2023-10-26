@@ -10,7 +10,7 @@ def pytest_addoption(parser):
     parser.addoption('--url', default='https://en.wikipedia.org/')
     parser.addoption('--os', default='web')
     parser.addoption('--debug_log', action='store_true')
-    parser.addoption('--appium', default='http://127.0.0.1:4723/wd/hub')
+    parser.addoption('--appium', default='http://127.0.0.1:4723')
 
 
 @pytest.fixture(scope='session')

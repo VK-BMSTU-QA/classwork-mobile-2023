@@ -1,7 +1,6 @@
 import logging
 
 import allure
-from appium.webdriver.common.touch_action import TouchAction
 from selenium.common.exceptions import StaleElementReferenceException, TimeoutException
 from selenium.webdriver import ActionChains
 from selenium.webdriver.support import expected_conditions as EC
@@ -12,7 +11,6 @@ from utils.decorators import wait
 
 CLICK_RETRY = 3
 BASE_TIMEOUT = 5
-
 
 logger = logging.getLogger('test')
 
@@ -41,6 +39,7 @@ class BasePage(object):
                         f'{self.url} did not opened in {BASE_TIMEOUT} for {self.__class__.__name__}.\n'
                         f'Current url: {self.driver.current_url}.')
                 return True
+
             return wait(_check_url, error=PageNotLoadedException, check=True, timeout=BASE_TIMEOUT, interval=0.1)
         else:
             return True
@@ -63,7 +62,7 @@ class BasePage(object):
     @allure.step('Clicking {locator}')
     def click(self, locator, timeout=None):
         for i in range(CLICK_RETRY):
-            logger.info(f'Clicking on {locator}. Try {i+1} of {CLICK_RETRY}...')
+            logger.info(f'Clicking on {locator}. Try {i + 1} of {CLICK_RETRY}...')
             try:
                 element = self.find(locator, timeout=timeout)
                 self.scroll_to(element)
@@ -77,7 +76,7 @@ class BasePage(object):
     @allure.step('Clicking {locator}')
     def click_for_android(self, locator, timeout=None):
         for i in range(CLICK_RETRY):
-            logger.info(f'Clicking on {locator}. Try {i+1} of {CLICK_RETRY}...')
+            logger.info(f'Clicking on {locator}. Try {i + 1} of {CLICK_RETRY}...')
             try:
                 self.find(locator, timeout=timeout)
                 element = self.wait(timeout).until(EC.element_to_be_clickable(locator))
@@ -97,17 +96,11 @@ class BasePage(object):
         4. TouchAction нажимает на указанные стартовые координаты, немного ждет и передвигает нас из одной точки в другую.
         5. release() наши пальцы с экрана, а perform() выполняет всю эту цепочку команд.
         """
-        action = TouchAction(self.driver)
         dimension = self.driver.get_window_size()
         x = int(dimension['width'] / 2)
         start_y = int(dimension['height'] * 0.8)
         end_y = int(dimension['height'] * 0.2)
-        action. \
-            press(x=x, y=start_y). \
-            wait(ms=swipetime). \
-            move_to(x=x, y=end_y). \
-            release(). \
-            perform()
+        self.driver.swipe(start_x=x, start_y=start_y, end_x=x, end_y=end_y, duration=swipetime)
 
     def swipe_to_element(self, locator, max_swipes):
         """
@@ -135,11 +128,4 @@ class BasePage(object):
         upper_y = web_element.location['y']
         lower_y = upper_y + web_element.rect['height']
         middle_y = (upper_y + lower_y) / 2
-        action = TouchAction(self.driver)
-        action. \
-            press(x=right_x, y=middle_y). \
-            wait(ms=300). \
-            move_to(x=left_x, y=middle_y). \
-            release(). \
-            perform()
-
+        self.driver.swipe(start_x=right_x, start_y=middle_y, end_x=left_x, end_y=middle_y, duration=300)

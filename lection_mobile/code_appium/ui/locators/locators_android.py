@@ -1,4 +1,4 @@
-from appium.webdriver.common.mobileby import MobileBy
+from appium.webdriver.common.appiumby import AppiumBy
 from selenium.webdriver.common.by import By
 
 
@@ -12,21 +12,21 @@ class LoginPageANDROIDLocators(BasePageANDROIDLocators):
 
 class MainPageANDROIDLocators(BasePageANDROIDLocators):
     SKIP_BUTTON = (By.ID, 'org.wikipedia:id/fragment_onboarding_skip_button')
-    SEARCH_ICON = (MobileBy.ACCESSIBILITY_ID, 'Search Wikipedia')
-    MY_LISTS = (MobileBy.ACCESSIBILITY_ID, 'My lists')
+    SEARCH_ICON = (AppiumBy.ACCESSIBILITY_ID, 'Search Wikipedia')
+    MY_LISTS = (AppiumBy.ACCESSIBILITY_ID, 'My lists')
     # MY_LISTS = (By.XPATH, '//android.widget.FrameLayout[@content-desc="My lists"]/android.widget.ImageView')
 
 
 class SearchPageANDROIDLocators(BasePageANDROIDLocators):
-    SEARCH_FIELD = (MobileBy.ID, 'org.wikipedia:id/search_src_text')
-    LIST_ITEM_TITLE = (MobileBy.ID, 'org.wikipedia:id/page_list_item_title')
+    SEARCH_FIELD = (AppiumBy.ID, 'org.wikipedia:id/search_src_text')
+    LIST_ITEM_TITLE = (AppiumBy.ID, 'org.wikipedia:id/page_list_item_title')
 
 
 class TitlePageANDROIDLocators(BasePageANDROIDLocators):
-    MENU_BOOKMARK = (MobileBy.ID, 'org.wikipedia:id/article_menu_bookmark')
-    PAGE_TOOLBAR = (MobileBy.ID, 'org.wikipedia:id/page_toolbar_button_search')
-    OVERFLOW_MENU = (MobileBy.ACCESSIBILITY_ID, 'More options')
-    OVERFLOW_FEED = (MobileBy.ID, 'org.wikipedia:id/overflow_feed')
+    MENU_BOOKMARK = (AppiumBy.ID, 'org.wikipedia:id/article_menu_bookmark')
+    PAGE_TOOLBAR = (AppiumBy.ID, 'org.wikipedia:id/page_toolbar_button_search')
+    OVERFLOW_MENU = (AppiumBy.ACCESSIBILITY_ID, 'More options')
+    OVERFLOW_FEED = (AppiumBy.ID, 'org.wikipedia:id/overflow_feed')
 
 
 class TitleListPageANDROIDLocators(BasePageANDROIDLocators):
